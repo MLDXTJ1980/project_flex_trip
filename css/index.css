@@ -1,0 +1,496 @@
+body {
+    max-width: 540px;
+    min-width: 320px;
+    margin: 0 auto;
+    font: normal 14px/1.5 Tahoma, "Lucida Grande", Verdana, "Microsoft Yahei", STXihei, hei;
+    color: #000;
+    background: #f2f2f2;
+    overflow-x: hidden;
+    -webkit-tap-highlight-color: transparent;
+}
+
+a {
+    text-decoration: none;
+    color: #222;
+}
+
+ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+
+/* search */
+
+.search-index {
+    display: flex;
+    /* fixed的盒子必须有宽度 */
+    position: fixed;
+    width: 100%;
+    height: 44px;
+    max-width: 540px;
+    min-width: 320px;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 0;
+    background-color: #f6f6f6;
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+    z-index: 999;
+}
+
+.search {
+    position: relative;
+    height: 26px;
+    border: 1px solid #ccc;
+    margin: 7px 10px;
+    border-radius: 5px;
+    flex: 1;
+    color: #ccc;
+    padding-left: 35px;
+    line-height: 24px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+
+/* 
+1. ::before 元素必须display:block
+2. 但是block元素占位会把文字挤到下面，所以改成position:ablolute
+3. position:ablolute不占位不会挤走文字，如果是absolute就无法设定margin 
+4. 文字垂直居中设定line-height和盒子等高，但C3盒子模型包括边框，所以此时应设定line-height为减去边框高度
+*/
+
+.search::before {
+    content: "";
+    /* display: block; */
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    width: 15px;
+    height: 15px;
+    background: url(../images/sprite.png) no-repeat -59px -279px;
+    background-size: 104px auto;
+    /*  margin: 5px; */
+}
+
+.user {
+    width: 44px;
+    height: 44px;
+    font-size: 12px;
+    text-align: center;
+    color: #2eaae0;
+}
+
+.user::before {
+    content: "";
+    display: block;
+    width: 23px;
+    height: 23px;
+    background: url(../images/sprite.png) no-repeat -59px -194px;
+    background-size: 104px auto;
+    margin: 3px auto 0;
+}
+
+
+/* goTop */
+
+.goTop {
+    display: none;
+    position: fixed;
+    bottom: 50px;
+    right: 20px;
+    width: 38px;
+    height: 38px;
+    background: url(../images/back.png) no-repeat;
+    background-size: 38px 38px;
+}
+
+
+/* focus */
+
+.focus {
+    position: relative;
+    padding-top: 44px;
+    overflow: hidden;
+}
+
+
+/* 给focus加上overflow: hidden才不会影响其他盒子 */
+
+.focus img {
+    width: 100%;
+}
+
+
+/* img 的父盒子是li,li的父亲是ul, img宽度随父亲，如果li没有宽度就随ul, 如果ul是500%,img也会变大，所以要给每个li加上20% */
+
+.focus ul {
+    width: 500%;
+    overflow: hidden;
+    margin-left: -100%;
+}
+
+
+/* 要显示第一张图片，要把li向左移动一张图片，移动的百分比以ul的父亲为标准，ul的父亲是focus,focus默认宽度和屏幕同宽 */
+
+
+/* 给ul加上overflow: hidden才不会影响其他盒子,相当于清除浮动 */
+
+.focus ul li {
+    float: left;
+    width: 20%;
+}
+
+.focus ol {
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+    margin: 0;
+}
+
+.focus ol li {
+    display: inline-block;
+    width: 5px;
+    height: 5px;
+    background-color: red;
+    list-style: none;
+    border-radius: 3px;
+    transition: all 0.3s;
+}
+
+.focus ol li.current {
+    width: 10px;
+}
+
+
+/* local-nav */
+
+.local-nav {
+    display: flex;
+    height: 64px;
+    background-color: #fff;
+    margin: 3px 4px;
+    border-radius: 5px;
+}
+
+.local-nav li {
+    flex: 1;
+}
+
+.local-nav li a {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 12px;
+}
+
+.local-nav-icon {
+    width: 32px;
+    height: 32px;
+    background-color: pink;
+    margin-top: 8px;
+}
+
+
+/* 
+solution 2: 
+local-nav-icon-icon1
+local-nav-icon-icon2
+local-nav-icon-icon3
+local-nav-icon-icon4
+local-nav-icon-icon5
+local-nav li [class^="local-nav-icon"]
+*/
+
+.local-nav li:nth-child(1) .local-nav-icon {
+    background: url(../images/localnav_bg.png) no-repeat 0 0;
+    background-size: 32px auto;
+}
+
+.local-nav li:nth-child(2) .local-nav-icon {
+    background: url(../images/localnav_bg.png) no-repeat 0 -32px;
+    background-size: 32px auto;
+}
+
+.local-nav li:nth-child(3) .local-nav-icon {
+    background: url(../images/localnav_bg.png) no-repeat 0 -64px;
+    background-size: 32px auto;
+}
+
+.local-nav li:nth-child(4) .local-nav-icon {
+    background: url(../images/localnav_bg.png) no-repeat 0 -96px;
+    background-size: 32px auto;
+}
+
+.local-nav li:nth-child(5) .local-nav-icon {
+    background: url(../images/localnav_bg.png) no-repeat 0 -128px;
+    background-size: 32px auto;
+}
+
+
+/* nav */
+
+nav {
+    border-radius: 8px;
+    margin: 0 4px 3px;
+    overflow: hidden;
+}
+
+.nav-commen {
+    display: flex;
+    height: 88px;
+    background-color: lightgreen;
+}
+
+.nav-commen:nth-child(2) {
+    margin: 3px 0;
+}
+
+.nav-items {
+    position: relative;
+    display: flex;
+    flex: 1;
+}
+
+nav .nav-commen .nav-items:nth-child(1) a {
+    border: 0;
+    background: url(../images/hotel.png) no-repeat 34px 36px;
+    background-size: 104px auto;
+}
+
+
+/* -n+2 后两个 */
+
+.nav-items:nth-child(-n + 2) {
+    border-right: 1px solid #fff;
+}
+
+
+/* 背景颜色渐变，background 手机端加webkit够了 */
+
+.nav-commen:nth-child(1) {
+    background: -webkit-linear-gradient(left, #4b90ed, #53bced);
+}
+
+.nav-commen:nth-child(2) {
+    background: -webkit-linear-gradient(left, #fa5a55, #fa994d);
+}
+
+.nav-commen:nth-child(3) {
+    background: -webkit-linear-gradient(left, #34c2a9, #6cd559);
+}
+
+.nav-items {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.nav-items a {
+    flex: 1;
+    text-align: center;
+    line-height: 44px;
+    color: #fff;
+    font-size: 14px;
+    border-bottom: 1px solid #fff;
+    text-shadow: 1px 1px rgba(0, 0, 0, 0.2);
+}
+
+
+/* sub-nav */
+
+.sub-nav-entry {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 5px 5px;
+    background-color: #fff;
+    border-radius: 5px;
+    padding: 5px 0;
+}
+
+.sub-nav-entry li {
+    flex: 20%;
+}
+
+.sub-nav-entry li a {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.sub-nav-icon {
+    width: 28px;
+    height: 28px;
+    margin-top: 4px;
+}
+
+.sub-nav-entry li:nth-child(1) a .sub-nav-icon {
+    background: url(../images/subnav-bg.png) no-repeat 0 0;
+    background-size: 28px auto;
+}
+
+.sub-nav-entry li:nth-child(2) a .sub-nav-icon {
+    background: url(../images/subnav-bg.png) no-repeat 0 -28px;
+    background-size: 28px auto;
+}
+
+.sub-nav-entry li:nth-child(3) a .sub-nav-icon {
+    background: url(../images/subnav-bg.png) no-repeat 0 -62px;
+    background-size: 28px auto;
+}
+
+.sub-nav-entry li:nth-child(4) a .sub-nav-icon {
+    background: url(../images/subnav-bg.png) no-repeat 0 -98px;
+    background-size: 28px auto;
+}
+
+.sub-nav-entry li:nth-child(5) a .sub-nav-icon {
+    background: url(../images/subnav-bg.png) no-repeat 0 -130px;
+    background-size: 28px auto;
+}
+
+.sub-nav-entry li:nth-child(6) a .sub-nav-icon {
+    background: url(../images/subnav-bg.png) no-repeat 0 -162px;
+    background-size: 28px auto;
+}
+
+.sub-nav-entry li:nth-child(7) a .sub-nav-icon {
+    background: url(../images/subnav-bg.png) no-repeat 0 -195px;
+    background-size: 28px auto;
+}
+
+.sub-nav-entry li:nth-child(8) a .sub-nav-icon {
+    background: url(../images/subnav-bg.png) no-repeat 0 -226px;
+    background-size: 28px auto;
+}
+
+.sub-nav-entry li:nth-child(9) a .sub-nav-icon {
+    background: url(../images/subnav-bg.png) no-repeat 0 -254px;
+    background-size: 28px auto;
+}
+
+.sub-nav-entry li:nth-child(10) a .sub-nav-icon {
+    background: url(../images/subnav-bg.png) no-repeat 0 -284px;
+    background-size: 28px auto;
+}
+
+
+/* sales-box */
+
+.sales-box {
+    border-top: 1px solid #bbb;
+    background-color: #fff;
+    margin: 4px;
+}
+
+.sales-hd {
+    position: relative;
+    height: 44px;
+    border-bottom: 1px solid #ccc;
+}
+
+.sales-hd h2 {
+    position: relative;
+    text-indent: -999px;
+    overflow: hidden;
+    /* 加强网络搜索 */
+    margin: 0 5px;
+}
+
+.sales-hd h2::after {
+    position: absolute;
+    left: 20px;
+    top: 12px;
+    width: 79px;
+    height: 20px;
+    content: "";
+    background: url(../images/hot.png) no-repeat 0px -17px;
+    background-size: 79px auto;
+}
+
+.more {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    padding: 3px 20px 3px 10px;
+    background: -webkit-linear-gradient(left, #ff506c, #ff6bc6);
+    border-radius: 15px;
+    color: #fff;
+}
+
+.more::after {
+    content: "";
+    position: absolute;
+    top: 8px;
+    right: 9px;
+    width: 7px;
+    height: 7px;
+    border-top: 2px solid #fff;
+    border-right: 2px solid #fff;
+    transform: rotate(45deg);
+}
+
+.row {
+    display: flex;
+}
+
+.row a {
+    flex: 1;
+    border-bottom: 1px solid #ccc;
+}
+
+.row a:nth-child(1) {
+    border-right: 1px solid #ccc;
+}
+
+.row a img {
+    width: 100%;
+}
+
+
+/* bottom-nav */
+
+.bottom-nav {
+    display: flex;
+    height: 64px;
+    background-color: #fff;
+    margin: 3px 4px;
+    border-radius: 5px;
+}
+
+.bottom-nav li {
+    flex: 1;
+}
+
+.bottom-nav li a {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 12px;
+}
+
+.bottom-nav-icon {
+    width: 23px;
+    height: 23px;
+    background-color: pink;
+    margin-top: 8px;
+}
+
+.bottom-nav li:nth-child(1) .bottom-nav-icon {
+    background: url(../images/sprite.png) no-repeat -58px -150px;
+    background-size: 104px auto;
+}
+
+.bottom-nav li:nth-child(2) .bottom-nav-icon {
+    background: url(../images/sprite.png) no-repeat -58px -170px;
+    background-size: 104px auto;
+}
+
+.bottom-nav li:nth-child(3) .bottom-nav-icon {
+    background: url(../images/sprite.png) no-repeat -58px -306px;
+    background-size: 104px auto;
+}
